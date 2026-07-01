@@ -17,10 +17,6 @@
             --secondary-btn-hover: #334155;
             --disabled-btn: #cbd5e1; 
             --disabled-text: #94a3b8;
-            --danger-btn: #ef4444;
-            --danger-btn-hover: #dc2626;
-            --maintenance-bg: #fef2f2;
-            --maintenance-text: #991b1b;
         }
 
         body {
@@ -35,156 +31,7 @@
             box-sizing: border-box;
         }
 
-        /* --- FIXED: FLOATING ADMIN AUTH BAR --- */
-        .admin-auth-bar {
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto 1.5rem auto;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 0.75rem;
-            position: relative;
-            z-index: 9999; /* Forces it to stay on top of the maintenance screen */
-            background: rgba(255, 255, 255, 0.4);
-            padding: 0.5rem;
-            border-radius: 8px;
-            backdrop-filter: blur(4px); /* Slight blur behind buttons */
-        }
-        .signup-link {
-            font-size: 0.85rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .signup-link:hover { text-decoration: underline; }
-
-        .admin-inline-btn {
-            background: var(--secondary-btn);
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-        .admin-inline-btn:hover { background: var(--secondary-btn-hover); }
-        .admin-logout-btn { background: var(--danger-btn); }
-        .admin-logout-btn:hover { background: var(--danger-btn-hover); }
-
-        /* --- ADMIN DASHBOARD PANEL STYLES --- */
-        .admin-panel {
-            display: none;
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto 2rem auto;
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            box-sizing: border-box;
-            position: relative;
-            z-index: 9998;
-        }
-        .admin-panel h3 { margin-top: 0; margin-bottom: 1rem; color: var(--accent); }
-        
-        .maintenance-control-box {
-            grid-column: 1 / -1;
-            background: var(--maintenance-bg);
-            border: 1px solid #fee2e2;
-            padding: 1rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .maintenance-control-box label {
-            font-weight: bold;
-            color: var(--maintenance-text);
-        }
-        .toggle-btn {
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .admin-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-        @media (max-width: 600px) { .admin-form { grid-template-columns: 1fr; } }
-        .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
-        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group select, .form-group textarea {
-            padding: 0.5rem;
-            border: 1px solid var(--disabled-btn);
-            border-radius: 6px;
-            font-family: inherit;
-        }
-        .form-full-width { grid-column: 1 / -1; }
-        .admin-submit-btn {
-            grid-column: 1 / -1;
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .admin-submit-btn:hover { background: var(--accent-hover); }
-        
-        .delete-game-btn {
-            background: var(--danger-btn);
-            color: white;
-            border: none;
-            padding: 0.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 0.75rem;
-            display: none; 
-            width: 100%;
-            text-align: center;
-        }
-        .delete-game-btn:hover { background: var(--danger-btn-hover); }
-
-        /* --- DEDICATED SEPARATE WEBSITE DOWN PAGE STYLES --- */
-        #maintenanceScreen {
-            display: none;
-            max-width: 550px;
-            margin: auto;
-            text-align: center;
-            background: #ffffff;
-            padding: 3rem 2rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            border-top: 8px solid var(--danger-btn);
-        }
-        #maintenanceScreen h2 {
-            color: var(--maintenance-text);
-            font-size: 2rem;
-            margin: 0 0 1rem 0;
-        }
-        #maintenanceScreen p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-        .maintenance-gear-icon {
-            font-size: 4.5rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-
-        /* --- MAIN PORTAL VISUALS HEADER --- */
+        /* --- HEADER LAYOUT POSITIONING --- */
         header {
             text-align: center;
             margin-bottom: 3rem;
@@ -192,13 +39,16 @@
             flex-direction: column;
             align-items: center;
             gap: 1rem;
+            margin-top: 2rem;
         }
+
         .header-icon {
             width: 80px;
             height: 80px;
             border-radius: 16px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
+
         h1 { font-size: 2.5rem; margin: 0 0 0.5rem 0; }
         p { color: var(--text-muted); font-size: 1.1rem; margin: 0; }
 
@@ -263,108 +113,45 @@
 </head>
 <body>
 
-    <div class="admin-auth-bar">
-        <a href="signup.html" id="signupLink" class="signup-link">Request Admin Access</a>
-        <button id="adminLoginBtn" class="admin-inline-btn" onclick="handleAdminLogin()">Admin Login</button>
-        <button id="adminLogoutBtn" class="admin-inline-btn admin-logout-btn" onclick="handleAdminLogout()" style="display: none;">Admin Logout</button>
-    </div>
-
-    <div id="adminPanel" class="admin-panel">
-        <div class="maintenance-control-box">
-            <label id="maintenanceLabel">Website Status: Live & Operational</label>
-            <button id="maintenanceToggleBtn" class="toggle-btn" onclick="toggleMaintenanceMode()" style="background: var(--danger-btn); color: white;">Switch to Website Down Page</button>
+    <header>
+        <img src="icon.png" alt="The_ProBeter Icon" class="header-icon" onerror="this.style.display='none';">
+        <div>
+            <h1>The_ProBeter's GAME'S!</h1>
+            <p>Heres the games i made!</p>
         </div>
+    </header>
 
-        <h3>Create New Game Card</h3>
-        <form class="admin-form" onsubmit="addNewGame(event)">
-            <div class="form-group">
-                <label for="gTitle">Game Title</label>
-                <input type="text" id="gTitle" required placeholder="e.g., Cool Speedrunner Game">
-            </div>
-            <div class="form-group">
-                <label for="gImage">Image Filename / URL</label>
-                <input type="text" id="gImage" required placeholder="e.g., mygameimage.png">
-            </div>
-            <div class="form-group">
-                <label for="gTags">Tags (Comma-separated)</label>
-                <input type="text" id="gTags" placeholder="e.g., Unity 6, Action, PC">
-            </div>
-            <div class="form-group">
-                <label for="gType">Card Template Style</label>
-                <select id="gType">
-                    <option value="playable">Play Game + Source Code</option>
-                    <option value="playonly">Play Game Only</option>
-                    <option value="game2">Play Game + Info Text (Game 2 Style)</option>
-                    <option value="comingsoon">Coming Soon Status</option>
-                </select>
-            </div>
-            <div class="form-group form-full-width">
-                <label for="gDesc">Description</label>
-                <textarea id="gDesc" rows="2" required placeholder="Describe your awesome game..."></textarea>
-            </div>
-            <div class="form-group">
-                <label for="gPlayUrl">Play Link (Itch.io etc.)</label>
-                <input type="text" id="gPlayUrl" placeholder="https://...">
-            </div>
-            <div class="form-group">
-                <label for="gSourceUrl">Source Code Link (GitHub etc.)</label>
-                <input type="text" id="gSourceUrl" placeholder="https://...">
-            </div>
-            <button type="submit" class="admin-submit-btn">Add Game Card</button>
-        </form>
-    </div>
+    <main class="game-grid" id="gameGridContainer">
+        </main>
 
-    <div id="maintenanceScreen">
-        <div class="maintenance-gear-icon">🛠️</div>
-        <h2>Website Under Maintenance</h2>
-        <p>The ProBeter's Games Portal is currently offline while we update our items or run server code modifications. Please check back shortly!</p>
-    </div>
-
-    <div id="mainWebsiteContent">
-        <header>
-            <img src="icon.png" alt="The_ProBeter Icon" class="header-icon" onerror="this.style.display='none';">
-            <div>
-                <h1>The_ProBeter's GAME'S!</h1>
-                <p>Heres the games i made!</p>
-            </div>
-        </header>
-
-        <main class="game-grid" id="gameGridContainer">
-            </main>
-
-        <footer>
-            <div class="social-links">
-                <a href="https://www.youtube.com/@The_ProBeterGaming" target="_blank">
-                    <img src="yt-icon.png" alt="YouTube" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg'">
-                </a>
-                <a href="https://discord.gg/sWreCUdCbT" target="_blank">
-                    <img src="discord-icon.png" alt="Discord" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg'">
-                </a>
-            </div>
-            <p class="coming-soon">👍MORE GAMES COMING SOON 👍</p>
-        </footer>
-    </div>
+    <footer>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@The_ProBeterGaming" target="_blank">
+                <img src="yt-icon.png" alt="YouTube" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg'">
+            </a>
+            <a href="https://discord.gg/sWreCUdCbT" target="_blank">
+                <img src="discord-icon.png" alt="Discord" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg'">
+            </a>
+        </div>
+        <p class="coming-soon">👍MORE GAMES COMING SOON 👍</p>
+    </footer>
 
     <script>
-        // Accounts authorized to access system dashboard controls
-        const allowedAdmins = [
-            { user: "admin", pass: "adminadmin45555644322344567$$2" },
-            { user: "The_ProBeter", pass: "La2014w$" }
-        ];
-
-        const defaultGames = [
+        // ==========================================================
+        // YOUR GAMES LIST
+        // To add, edit, or delete a game card, just update this list!
+        // ==========================================================
+        const myGames = [
             {
-                id: "game-1",
                 title: "A Unity Project to test my skills",
                 imgSrc: "aupttmsimage.png",
                 tags: ["Unity 6", "Itch.io", "Old Source Code"],
                 desc: "A game i made to test my unity skills. Ill say i did pretty good!",
-                type: "playable",
+                type: "playable", // Options: "playable", "playonly", "game2", "comingsoon"
                 playUrl: "https://the-probeter.itch.io/a-unity-project-to-test-my-skills",
                 sourceUrl: "https://github.com/TheProBeter/Project-I-made-to-test-my-unity-skills-Source-Code/releases/tag/sourcecode"
             },
             {
-                id: "game-2",
                 title: "A Unity 5 Project",
                 imgSrc: "unity-5-project.png",
                 tags: ["Unity 5.0", "Itch.io"],
@@ -374,7 +161,6 @@
                 sourceUrl: ""
             },
             {
-                id: "game-3",
                 title: "A Unity Project to test my skills 2",
                 imgSrc: "aupttms2-image.png",
                 tags: ["Unity", "In Development"],
@@ -384,7 +170,6 @@
                 sourceUrl: ""
             },
             {
-                id: "game-4",
                 title: "???",
                 imgSrc: "secret-project.png",
                 tags: ["???", "Top Secret"],
@@ -395,98 +180,12 @@
             }
         ];
 
-        let gamesData = [];
-        let isAdminLoggedIn = false;
-        let isMaintenanceOn = false;
-
-        window.addEventListener('DOMContentLoaded', () => {
-            isAdminLoggedIn = localStorage.getItem('isAdmin') === 'true';
-            isMaintenanceOn = localStorage.getItem('isMaintenance') === 'true';
-            
-            const savedGames = localStorage.getItem('myGamesPortalData');
-            if (savedGames) {
-                gamesData = JSON.parse(savedGames);
-            } else {
-                gamesData = [...defaultGames];
-                localStorage.setItem('myGamesPortalData', JSON.stringify(gamesData));
-            }
-
-            renderUI();
-        });
-
-        function handleAdminLogin() {
-            const enteredUser = prompt("Enter Admin Username:");
-            const enteredPass = prompt("Enter Admin Password:");
-            
-            const matchFound = allowedAdmins.find(account => account.user === enteredUser && account.pass === enteredPass);
-
-            if (matchFound) {
-                isAdminLoggedIn = true;
-                localStorage.setItem('isAdmin', 'true');
-                renderUI();
-            } else {
-                alert("Incorrect username or password configuration match!");
-            }
-        }
-
-        function handleAdminLogout() {
-            isAdminLoggedIn = false;
-            localStorage.setItem('isAdmin', 'false');
-            renderUI();
-        }
-
-        function toggleMaintenanceMode() {
-            isMaintenanceOn = !isMaintenanceOn;
-            localStorage.setItem('isMaintenance', isMaintenanceOn ? 'true' : 'false');
-            renderUI();
-        }
-
-        function renderUI() {
+        // This function automatically builds the HTML cards based on your list above
+        function renderGames() {
             const container = document.getElementById('gameGridContainer');
             container.innerHTML = '';
 
-            const mainContentBlock = document.getElementById('mainWebsiteContent');
-            const maintenanceScreenBlock = document.getElementById('maintenanceScreen');
-
-            // 1. Evaluate maintenance state rendering switches
-            if (isMaintenanceOn && !isAdminLoggedIn) {
-                mainContentBlock.style.display = 'none';
-                maintenanceScreenBlock.style.display = 'block';
-                document.body.style.backgroundColor = '#f8fafc'; 
-            } else {
-                mainContentBlock.style.display = 'block';
-                maintenanceScreenBlock.style.display = 'none';
-                document.body.style.backgroundColor = 'var(--bg-color)';
-            }
-
-            // 2. Refresh Auth Bar buttons state parameters
-            if (isAdminLoggedIn) {
-                document.getElementById('adminLoginBtn').style.display = 'none';
-                document.getElementById('signupLink').style.display = 'none';
-                document.getElementById('adminLogoutBtn').style.display = 'inline-block';
-                document.getElementById('adminPanel').style.display = 'block';
-
-                const panelLabel = document.getElementById('maintenanceLabel');
-                const panelToggleBtn = document.getElementById('maintenanceToggleBtn');
-                if (isMaintenanceOn) {
-                    panelLabel.innerText = "Website Status: DOWN (Maintenance Screen Active)";
-                    panelToggleBtn.innerText = "Take Website Live Again";
-                    panelToggleBtn.style.background = "#16a34a";
-                } else {
-                    panelLabel.innerText = "Website Status: Live & Operational";
-                    panelToggleBtn.innerText = "Switch to Website Down Page";
-                    panelToggleBtn.style.background = "var(--danger-btn)";
-                }
-            } else {
-                document.getElementById('adminLoginBtn').style.display = 'inline-block';
-                // Hide signup request links completely during active downtime events
-                document.getElementById('signupLink').style.display = isMaintenanceOn ? 'none' : 'inline-block';
-                document.getElementById('adminLogoutBtn').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'none';
-            }
-
-            // 3. Render out the custom template items array loops
-            gamesData.forEach(game => {
+            myGames.forEach(game => {
                 const article = document.createElement('article');
                 article.className = 'card';
 
@@ -526,51 +225,14 @@
                         <div class="btn-group">
                             ${buttonsHTML}
                         </div>
-                        <button class="delete-game-btn" onclick="deleteGame('${game.id}')" style="display: ${isAdminLoggedIn ? 'block' : 'none'};">Delete Card</button>
                     </div>
                 `;
                 container.appendChild(article);
             });
         }
 
-        function addNewGame(e) {
-            e.preventDefault();
-
-            const title = document.getElementById('gTitle').value;
-            const imgSrc = document.getElementById('gImage').value;
-            const desc = document.getElementById('gDesc').value;
-            const type = document.getElementById('gType').value;
-            const playUrl = document.getElementById('gPlayUrl').value || '#';
-            const sourceUrl = document.getElementById('gSourceUrl').value || '#';
-            
-            const rawTags = document.getElementById('gTags').value;
-            const tags = rawTags ? rawTags.split(',').map(t => t.trim()) : ["Game"];
-
-            const newCardObj = {
-                id: "custom-" + Date.now(),
-                title,
-                imgSrc,
-                tags,
-                desc,
-                type,
-                playUrl,
-                sourceUrl
-            };
-
-            gamesData.push(newCardObj);
-            localStorage.setItem('myGamesPortalData', JSON.stringify(gamesData));
-            
-            e.target.reset();
-            renderUI();
-        }
-
-        function deleteGame(id) {
-            if (confirm("Are you sure you want to delete this game card?")) {
-                gamesData = gamesData.filter(game => game.id !== id);
-                localStorage.setItem('myGamesPortalData', JSON.stringify(gamesData));
-                renderUI();
-            }
-        }
+        // Run the render function when the page loads
+        window.addEventListener('DOMContentLoaded', renderGames);
     </script>
 </body>
 </html>
