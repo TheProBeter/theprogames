@@ -35,43 +35,21 @@
             box-sizing: border-box;
         }
 
-        /* --- MAINTENANCE STATE STYLES --- */
-        #maintenanceScreen {
-            display: none;
-            max-width: 600px;
-            margin: auto;
-            text-align: center;
-            background: #ffffff;
-            padding: 3rem 2rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
-            border-top: 8px solid var(--danger-btn);
-        }
-        #maintenanceScreen h2 {
-            color: var(--maintenance-text);
-            font-size: 2rem;
-            margin-top: 0;
-        }
-        #maintenanceScreen p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-        .maintenance-gear-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        /* --- ADMIN PANEL STYLES --- */
+        /* --- FIXED: FLOATING ADMIN AUTH BAR --- */
         .admin-auth-bar {
             max-width: 1000px;
             width: 100%;
-            margin: 0 auto 1rem auto;
+            margin: 0 auto 1.5rem auto;
             display: flex;
             justify-content: flex-end;
             align-items: center;
             gap: 0.75rem;
+            position: relative;
+            z-index: 9999; /* Forces it to stay on top of the maintenance screen */
+            background: rgba(255, 255, 255, 0.4);
+            padding: 0.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(4px); /* Slight blur behind buttons */
         }
         .signup-link {
             font-size: 0.85rem;
@@ -94,6 +72,7 @@
         .admin-logout-btn { background: var(--danger-btn); }
         .admin-logout-btn:hover { background: var(--danger-btn-hover); }
 
+        /* --- ADMIN DASHBOARD PANEL STYLES --- */
         .admin-panel {
             display: none;
             max-width: 1000px;
@@ -104,10 +83,11 @@
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             box-sizing: border-box;
+            position: relative;
+            z-index: 9998;
         }
         .admin-panel h3 { margin-top: 0; margin-bottom: 1rem; color: var(--accent); }
         
-        /* Maintenance Toggle Style */
         .maintenance-control-box {
             grid-column: 1 / -1;
             background: var(--maintenance-bg);
@@ -118,6 +98,8 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
         .maintenance-control-box label {
             font-weight: bold;
@@ -173,7 +155,36 @@
         }
         .delete-game-btn:hover { background: var(--danger-btn-hover); }
 
-        /* --- ORIGINAL HEADER LAYOUT POSITIONING --- */
+        /* --- DEDICATED SEPARATE WEBSITE DOWN PAGE STYLES --- */
+        #maintenanceScreen {
+            display: none;
+            max-width: 550px;
+            margin: auto;
+            text-align: center;
+            background: #ffffff;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            border-top: 8px solid var(--danger-btn);
+        }
+        #maintenanceScreen h2 {
+            color: var(--maintenance-text);
+            font-size: 2rem;
+            margin: 0 0 1rem 0;
+        }
+        #maintenanceScreen p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .maintenance-gear-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* --- MAIN PORTAL VISUALS HEADER --- */
         header {
             text-align: center;
             margin-bottom: 3rem;
@@ -182,18 +193,16 @@
             align-items: center;
             gap: 1rem;
         }
-
         .header-icon {
             width: 80px;
             height: 80px;
             border-radius: 16px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
-
         h1 { font-size: 2.5rem; margin: 0 0 0.5rem 0; }
         p { color: var(--text-muted); font-size: 1.1rem; margin: 0; }
 
-        /* --- GRID & CARD STYLES --- */
+        /* --- GRID & CARD LAYOUTS --- */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
@@ -202,7 +211,6 @@
             margin: 0 auto;
             width: 100%;
         }
-
         @media (max-width: 768px) {
             .game-grid { grid-template-columns: 1fr; } 
         }
@@ -338,6 +346,7 @@
     </div>
 
     <script>
+        // Accounts authorized to access system dashboard controls
         const allowedAdmins = [
             { user: "admin", pass: "password123" }
         ];
@@ -425,7 +434,6 @@
             renderUI();
         }
 
-        // Toggle Website Down Page State
         function toggleMaintenanceMode() {
             isMaintenanceOn = !isMaintenanceOn;
             localStorage.setItem('isMaintenance', isMaintenanceOn ? 'true' : 'false');
@@ -436,14 +444,13 @@
             const container = document.getElementById('gameGridContainer');
             container.innerHTML = '';
 
-            // 1. Manage visibility layout based on maintenance toggle setup
             const mainContentBlock = document.getElementById('mainWebsiteContent');
             const maintenanceScreenBlock = document.getElementById('maintenanceScreen');
 
+            // 1. Evaluate maintenance state rendering switches
             if (isMaintenanceOn && !isAdminLoggedIn) {
                 mainContentBlock.style.display = 'none';
                 maintenanceScreenBlock.style.display = 'block';
-                // Adjust auth bar styling context to position cleanly in corner during downtime
                 document.body.style.backgroundColor = '#f8fafc'; 
             } else {
                 mainContentBlock.style.display = 'block';
@@ -451,14 +458,13 @@
                 document.body.style.backgroundColor = 'var(--bg-color)';
             }
 
-            // 2. Adjust Authentication bar switches
+            // 2. Refresh Auth Bar buttons state parameters
             if (isAdminLoggedIn) {
                 document.getElementById('adminLoginBtn').style.display = 'none';
                 document.getElementById('signupLink').style.display = 'none';
                 document.getElementById('adminLogoutBtn').style.display = 'inline-block';
                 document.getElementById('adminPanel').style.display = 'block';
 
-                // Update Control Panel Text Layout State Indicators
                 const panelLabel = document.getElementById('maintenanceLabel');
                 const panelToggleBtn = document.getElementById('maintenanceToggleBtn');
                 if (isMaintenanceOn) {
@@ -472,12 +478,13 @@
                 }
             } else {
                 document.getElementById('adminLoginBtn').style.display = 'inline-block';
+                // Hide signup request links completely during active downtime events
                 document.getElementById('signupLink').style.display = isMaintenanceOn ? 'none' : 'inline-block';
                 document.getElementById('adminLogoutBtn').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'none';
             }
 
-            // 3. Render Card Loop Blocks
+            // 3. Render out the custom template items array loops
             gamesData.forEach(game => {
                 const article = document.createElement('article');
                 article.className = 'card';
