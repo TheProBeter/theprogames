@@ -17,6 +17,8 @@
             --secondary-btn-hover: #334155;
             --disabled-btn: #cbd5e1; 
             --disabled-text: #94a3b8;
+            --danger-btn: #ef4444;
+            --danger-btn-hover: #dc2626;
         }
 
         body {
@@ -31,7 +33,92 @@
             box-sizing: border-box;
         }
 
-        /* --- PART 1: HEADER STYLES --- */
+        /* --- ADMIN PANEL STYLES --- */
+        .admin-auth-bar {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto 1rem auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .signup-link {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .signup-link:hover { text-decoration: underline; }
+
+        .admin-inline-btn {
+            background: var(--secondary-btn);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .admin-inline-btn:hover { background: var(--secondary-btn-hover); }
+        .admin-logout-btn { background: var(--danger-btn); }
+        .admin-logout-btn:hover { background: var(--danger-btn-hover); }
+
+        .admin-panel {
+            display: none;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto 2rem auto;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        .admin-panel h3 { margin-top: 0; margin-bottom: 1rem; color: var(--accent); }
+        .admin-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 600px) { .admin-form { grid-template-columns: 1fr; } }
+        .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.5rem;
+            border: 1px solid var(--disabled-btn);
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        .form-full-width { grid-column: 1 / -1; }
+        .admin-submit-btn {
+            grid-column: 1 / -1;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .admin-submit-btn:hover { background: var(--accent-hover); }
+        
+        .delete-game-btn {
+            background: var(--danger-btn);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 0.75rem;
+            display: none; 
+            width: 100%;
+            text-align: center;
+        }
+        .delete-game-btn:hover { background: var(--danger-btn-hover); }
+
+        /* --- FIXED: ORIGINAL HEADER LAYOUT POSITIONING --- */
         header {
             text-align: center;
             margin-bottom: 3rem;
@@ -51,10 +138,10 @@
         h1 { font-size: 2.5rem; margin: 0 0 0.5rem 0; }
         p { color: var(--text-muted); font-size: 1.1rem; margin: 0; }
 
-        /* --- PART 2: GRID & CARD STYLES --- */
+        /* --- GRID & CARD STYLES --- */
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 per row */
+            grid-template-columns: repeat(2, 1fr); 
             gap: 2rem;
             max-width: 1000px;
             margin: 0 auto;
@@ -62,7 +149,7 @@
         }
 
         @media (max-width: 768px) {
-            .game-grid { grid-template-columns: 1fr; } /* 1 per row on phones */
+            .game-grid { grid-template-columns: 1fr; } 
         }
 
         .card {
@@ -74,18 +161,10 @@
             display: flex;
             flex-direction: column;
         }
-
         .card:hover { transform: translateY(-5px); }
 
-        .thumbnail-container {
-            width: 100%;
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-
+        .thumbnail-container { width: 100%; height: 200px; position: relative; overflow: hidden; }
         .game-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
         .fallback-thumb {
             width: 100%; height: 100%; background-color: #cbd5e1;
             display: flex; align-items: center; justify-content: center;
@@ -94,7 +173,7 @@
         }
 
         .content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .tag { background: #e2e8f0; font-size: 0.8rem; padding: 0.25rem 0.5rem; border-radius: 4px; }
         h2 { margin: 0 0 0.5rem 0; font-size: 1.4rem; }
         .description { font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; color: var(--text-muted); flex-grow: 1; }
@@ -105,22 +184,13 @@
             padding: 0.6rem 1.2rem; text-decoration: none; border-radius: 6px;
             font-weight: 500; text-align: center; transition: background-color 0.2s;
         }
-
         .btn-play { background-color: var(--accent); }
         .btn-play:hover { background-color: var(--accent-hover); }
         .btn-source { background-color: var(--secondary-btn); }
         .btn-source:hover { background-color: var(--secondary-btn-hover); }
         .btn-disabled { background-color: var(--disabled-btn); color: var(--disabled-text); cursor: not-allowed; pointer-events: none; }
-        
-        .btn-small-text {
-            font-size: 0.75rem;
-            padding: 0.5rem 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .btn-small-text { font-size: 0.75rem; padding: 0.5rem 0.8rem; display: flex; align-items: center; justify-content: center; }
 
-        /* --- PART 3: FOOTER STYLES --- */
         footer { margin-top: auto; text-align: center; padding-top: 4rem; padding-bottom: 1rem; }
         .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; }
         .social-icon { width: 45px; height: 45px; transition: transform 0.2s; }
@@ -130,9 +200,52 @@
 </head>
 <body>
 
-    <!-- ==========================================
-         PART 1: HEADER SECTION
-         ========================================== -->
+    <div class="admin-auth-bar">
+        <a href="signup.html" id="signupLink" class="signup-link">Request Admin Access</a>
+        <button id="adminLoginBtn" class="admin-inline-btn" onclick="handleAdminLogin()">Admin Login</button>
+        <button id="adminLogoutBtn" class="admin-inline-btn admin-logout-btn" onclick="handleAdminLogout()" style="display: none;">Admin Logout</button>
+    </div>
+
+    <div id="adminPanel" class="admin-panel">
+        <h3>Create New Game Card</h3>
+        <form class="admin-form" onsubmit="addNewGame(event)">
+            <div class="form-group">
+                <label for="gTitle">Game Title</label>
+                <input type="text" id="gTitle" required placeholder="e.g., Cool Speedrunner Game">
+            </div>
+            <div class="form-group">
+                <label for="gImage">Image Filename / URL</label>
+                <input type="text" id="gImage" required placeholder="e.g., mygameimage.png">
+            </div>
+            <div class="form-group">
+                <label for="gTags">Tags (Comma-separated)</label>
+                <input type="text" id="gTags" placeholder="e.g., Unity 6, Action, PC">
+            </div>
+            <div class="form-group">
+                <label for="gType">Card Template Style</label>
+                <select id="gType">
+                    <option value="playable">Play Game + Source Code</option>
+                    <option value="playonly">Play Game Only</option>
+                    <option value="game2">Play Game + Info Text (Game 2 Style)</option>
+                    <option value="comingsoon">Coming Soon Status</option>
+                </select>
+            </div>
+            <div class="form-group form-full-width">
+                <label for="gDesc">Description</label>
+                <textarea id="gDesc" rows="2" required placeholder="Describe your awesome game..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="gPlayUrl">Play Link (Itch.io etc.)</label>
+                <input type="text" id="gPlayUrl" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label for="gSourceUrl">Source Code Link (GitHub etc.)</label>
+                <input type="text" id="gSourceUrl" placeholder="https://...">
+            </div>
+            <button type="submit" class="admin-submit-btn">Add Game Card</button>
+        </form>
+    </div>
+
     <header>
         <img src="icon.png" alt="The_ProBeter Icon" class="header-icon" onerror="this.style.display='none';">
         <div>
@@ -141,102 +254,11 @@
         </div>
     </header>
 
+    <main class="game-grid" id="gameGridContainer">
+        </main>
 
-    <!-- ==========================================
-         PART 2: GAMES GRID SECTION (2 PER ROW)
-         ========================================== -->
-    <main class="game-grid">
-        
-        <!-- Game 1 Card -->
-        <article class="card">
-            <div class="thumbnail-container">
-                <img src="aupttmsimage.png" alt="A Unity Project to test my skills" class="game-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-thumb" style="display:none;">A Unity Project to test my skills</div>
-            </div> 
-            <div class="content">
-                <div class="tags">
-                    <span class="tag">Unity 6</span>
-                    <span class="tag">Itch.io</span>
-                    <span class="tag">Old Source Code</span>
-                </div>
-                <h2>A Unity Project to test my skills</h2>
-                <p class="description">A game i made to test my unity skills. Ill say i did pretty good!</p>
-                <div class="btn-group">
-                    <!-- CHANGED: Linked up Game 1 play and github source buttons -->
-                    <a href="https://the-probeter.itch.io/a-unity-project-to-test-my-skills" target="_blank" class="btn btn-play">Play Game</a>
-                    <a href="https://github.com/TheProBeter/Project-I-made-to-test-my-unity-skills-Source-Code/releases/tag/sourcecode" target="_blank" class="btn btn-source">Old source code</a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Game 2 Card -->
-        <article class="card">
-            <div class="thumbnail-container">
-                <img src="unity-5-project.png" alt="A Unity 5 Project" class="game-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-thumb" style="display:none;">A Unity 5 Project</div>
-            </div>
-            <div class="content">
-                <div class="tags">
-                    <span class="tag">Unity 5.0</span>
-                    <span class="tag">Itch.io</span>
-                </div>
-                <h2>A Unity 5 Project</h2>
-                <p class="description">A unity 5.0 project! Please don't use unity 5 as your default editor though, source code is also available.</p>
-                <div class="btn-group">
-                    <!-- CHANGED: Linked up Game 2 play button -->
-                    <a href="https://the-probeter.itch.io/a-unity-5-project" target="_blank" class="btn btn-play">Play Game</a>
-                    <span class="btn btn-disabled btn-small-text">Game code available on same page as game</span>
-                </div>
-            </div>
-        </article>
-
-        <!-- Game 3 Card (Coming Soon) -->
-        <article class="card">
-            <div class="thumbnail-container">
-                <img src="aupttms2-image.png" alt="A Unity Project to test my skills 2" class="game-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-thumb" style="display:none;">A Unity Project to test my skills 2</div>
-            </div>
-            <div class="content">
-                <div class="tags">
-                    <span class="tag">Unity</span>
-                    <span class="tag">In Development</span>
-                </div>
-                <h2>A Unity Project to test my skills 2</h2>
-                <p class="description">Another game i made to improve on my skills!</p>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-disabled">Coming Soon</a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Game 4 Card (New Secret Card) -->
-        <article class="card">
-            <div class="thumbnail-container">
-                <img src="secret-project.png" alt="???" class="game-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="fallback-thumb" style="display:none;">???</div>
-            </div>
-            <div class="content">
-                <div class="tags">
-                    <span class="tag">???</span>
-                    <span class="tag">Top Secret</span>
-                </div>
-                <h2>???</h2>
-                <p class="description">???</p>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-disabled">Coming Soon</a>
-                </div>
-            </div>
-        </article>
-
-    </main>
-
-
-    <!-- ==========================================
-         PART 3: FOOTER SECTION (SOCIALS & TEXT)
-         ========================================== -->
     <footer>
         <div class="social-links">
-            <!-- CHANGED: Linked up YouTube and Discord -->
             <a href="https://www.youtube.com/@The_ProBeterGaming" target="_blank">
                 <img src="yt-icon.png" alt="YouTube" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg'">
             </a>
@@ -247,5 +269,193 @@
         <p class="coming-soon">👍MORE GAMES COMING SOON 👍</p>
     </footer>
 
+    <script>
+        const allowedAdmins = [
+            { user: "admin", pass: "password123" }
+        ];
+
+        const defaultGames = [
+            {
+                id: "game-1",
+                title: "A Unity Project to test my skills",
+                imgSrc: "aupttmsimage.png",
+                tags: ["Unity 6", "Itch.io", "Old Source Code"],
+                desc: "A game i made to test my unity skills. Ill say i did pretty good!",
+                type: "playable",
+                playUrl: "https://the-probeter.itch.io/a-unity-project-to-test-my-skills",
+                sourceUrl: "https://github.com/TheProBeter/Project-I-made-to-test-my-unity-skills-Source-Code/releases/tag/sourcecode"
+            },
+            {
+                id: "game-2",
+                title: "A Unity 5 Project",
+                imgSrc: "unity-5-project.png",
+                tags: ["Unity 5.0", "Itch.io"],
+                desc: "A unity 5.0 project! Please don't use unity 5 as your default editor though, source code is also available.",
+                type: "game2",
+                playUrl: "https://the-probeter.itch.io/a-unity-5-project",
+                sourceUrl: ""
+            },
+            {
+                id: "game-3",
+                title: "A Unity Project to test my skills 2",
+                imgSrc: "aupttms2-image.png",
+                tags: ["Unity", "In Development"],
+                desc: "Another game i made to improve on my skills!",
+                type: "comingsoon",
+                playUrl: "",
+                sourceUrl: ""
+            },
+            {
+                id: "game-4",
+                title: "???",
+                imgSrc: "secret-project.png",
+                tags: ["???", "Top Secret"],
+                desc: "???",
+                type: "comingsoon",
+                playUrl: "",
+                sourceUrl: ""
+            }
+        ];
+
+        let gamesData = [];
+        let isAdminLoggedIn = false;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            isAdminLoggedIn = localStorage.getItem('isAdmin') === 'true';
+            
+            const savedGames = localStorage.getItem('myGamesPortalData');
+            if (savedGames) {
+                gamesData = JSON.parse(savedGames);
+            } else {
+                gamesData = [...defaultGames];
+                localStorage.setItem('myGamesPortalData', JSON.stringify(gamesData));
+            }
+
+            renderUI();
+        });
+
+        function handleAdminLogin() {
+            const enteredUser = prompt("Enter Admin Username:");
+            const enteredPass = prompt("Enter Admin Password:");
+            
+            const matchFound = allowedAdmins.find(account => account.user === enteredUser && account.pass === enteredPass);
+
+            if (matchFound) {
+                isAdminLoggedIn = true;
+                localStorage.setItem('isAdmin', 'true');
+                renderUI();
+            } else {
+                alert("Incorrect username or password configuration match!");
+            }
+        }
+
+        function handleAdminLogout() {
+            isAdminLoggedIn = false;
+            localStorage.setItem('isAdmin', 'false');
+            renderUI();
+        }
+
+        function renderUI() {
+            const container = document.getElementById('gameGridContainer');
+            container.innerHTML = '';
+
+            if (isAdminLoggedIn) {
+                document.getElementById('adminLoginBtn').style.display = 'none';
+                document.getElementById('signupLink').style.display = 'none';
+                document.getElementById('adminLogoutBtn').style.display = 'inline-block';
+                document.getElementById('adminPanel').style.display = 'block';
+            } else {
+                document.getElementById('adminLoginBtn').style.display = 'inline-block';
+                document.getElementById('signupLink').style.display = 'inline-block';
+                document.getElementById('adminLogoutBtn').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'none';
+            }
+
+            gamesData.forEach(game => {
+                const article = document.createElement('article');
+                article.className = 'card';
+
+                let tagsHTML = '';
+                game.tags.forEach(tag => {
+                    tagsHTML += `<span class="tag">${tag}</span>`;
+                });
+
+                let buttonsHTML = '';
+                if (game.type === 'playable') {
+                    buttonsHTML = `
+                        <a href="${game.playUrl}" target="_blank" class="btn btn-play">Play Game</a>
+                        <a href="${game.sourceUrl}" target="_blank" class="btn btn-source">Old source code</a>
+                    `;
+                } else if (game.type === 'playonly') {
+                    buttonsHTML = `
+                        <a href="${game.playUrl}" target="_blank" class="btn btn-play">Play Game</a>
+                    `;
+                } else if (game.type === 'game2') {
+                    buttonsHTML = `
+                        <a href="${game.playUrl}" target="_blank" class="btn btn-play">Play Game</a>
+                        <span class="btn btn-disabled btn-small-text">Game code available on same page as game</span>
+                    `;
+                } else {
+                    buttonsHTML = `<a href="#" class="btn btn-disabled">Coming Soon</a>`;
+                }
+
+                article.innerHTML = `
+                    <div class="thumbnail-container">
+                        <img src="${game.imgSrc}" alt="${game.title}" class="game-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="fallback-thumb" style="display:none;">${game.title}</div>
+                    </div>
+                    <div class="content">
+                        <div class="tags">${tagsHTML}</div>
+                        <h2>${game.title}</h2>
+                        <p class="description">${game.desc}</p>
+                        <div class="btn-group">
+                            ${buttonsHTML}
+                        </div>
+                        <button class="delete-game-btn" onclick="deleteGame('${game.id}')" style="display: ${isAdminLoggedIn ? 'block' : 'none'};">Delete Card</button>
+                    </div>
+                `;
+                container.appendChild(article);
+            });
+        }
+
+        function addNewGame(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('gTitle').value;
+            const imgSrc = document.getElementById('gImage').value;
+            const desc = document.getElementById('gDesc').value;
+            const type = document.getElementById('gType').value;
+            const playUrl = document.getElementById('gPlayUrl').value || '#';
+            const sourceUrl = document.getElementById('gSourceUrl').value || '#';
+            
+            const rawTags = document.getElementById('gTags').value;
+            const tags = rawTags ? rawTags.split(',').map(t => t.trim()) : ["Game"];
+
+            const newCardObj = {
+                id: "custom-" + Date.now(),
+                title,
+                imgSrc,
+                tags,
+                desc,
+                type,
+                playUrl,
+                sourceUrl
+            };
+
+            gamesData.push(newCardObj);
+            localStorage.setItem('myGamesPortalData', JSON.stringify(gamesData));
+            
+            e.target.reset();
+            renderUI();
+        }
+
+        function deleteGame(id) {
+            if (confirm("Are you sure you want to delete this game card?")) {
+                gamesData = gamesData.filter(game => game.id !== id);
+                localStorage.setItem('myGamesPortalData', JSON.stringify(gamesData));
+                renderUI();
+            }
+        }
+    </script>
 </body>
 </html>
