@@ -19,6 +19,8 @@
             --disabled-text: #94a3b8;
             --danger-btn: #ef4444;
             --danger-btn-hover: #dc2626;
+            --maintenance-bg: #fef2f2;
+            --maintenance-text: #991b1b;
         }
 
         body {
@@ -31,6 +33,34 @@
             flex-direction: column;
             min-height: 100vh;
             box-sizing: border-box;
+        }
+
+        /* --- MAINTENANCE STATE STYLES --- */
+        #maintenanceScreen {
+            display: none;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            background: #ffffff;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            border-top: 8px solid var(--danger-btn);
+        }
+        #maintenanceScreen h2 {
+            color: var(--maintenance-text);
+            font-size: 2rem;
+            margin-top: 0;
+        }
+        #maintenanceScreen p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .maintenance-gear-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
         }
 
         /* --- ADMIN PANEL STYLES --- */
@@ -76,6 +106,31 @@
             box-sizing: border-box;
         }
         .admin-panel h3 { margin-top: 0; margin-bottom: 1rem; color: var(--accent); }
+        
+        /* Maintenance Toggle Style */
+        .maintenance-control-box {
+            grid-column: 1 / -1;
+            background: var(--maintenance-bg);
+            border: 1px solid #fee2e2;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .maintenance-control-box label {
+            font-weight: bold;
+            color: var(--maintenance-text);
+        }
+        .toggle-btn {
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
         .admin-form {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -118,7 +173,7 @@
         }
         .delete-game-btn:hover { background: var(--danger-btn-hover); }
 
-        /* --- FIXED: ORIGINAL HEADER LAYOUT POSITIONING --- */
+        /* --- ORIGINAL HEADER LAYOUT POSITIONING --- */
         header {
             text-align: center;
             margin-bottom: 3rem;
@@ -207,6 +262,11 @@
     </div>
 
     <div id="adminPanel" class="admin-panel">
+        <div class="maintenance-control-box">
+            <label id="maintenanceLabel">Website Status: Live & Operational</label>
+            <button id="maintenanceToggleBtn" class="toggle-btn" onclick="toggleMaintenanceMode()" style="background: var(--danger-btn); color: white;">Switch to Website Down Page</button>
+        </div>
+
         <h3>Create New Game Card</h3>
         <form class="admin-form" onsubmit="addNewGame(event)">
             <div class="form-group">
@@ -246,33 +306,40 @@
         </form>
     </div>
 
-    <header>
-        <img src="icon.png" alt="The_ProBeter Icon" class="header-icon" onerror="this.style.display='none';">
-        <div>
-            <h1>The_ProBeter's GAME'S!</h1>
-            <p>Heres the games i made!</p>
-        </div>
-    </header>
+    <div id="maintenanceScreen">
+        <div class="maintenance-gear-icon">🛠️</div>
+        <h2>Website Under Maintenance</h2>
+        <p>The ProBeter's Games Portal is currently offline while we update our items or run server code modifications. Please check back shortly!</p>
+    </div>
 
-    <main class="game-grid" id="gameGridContainer">
-        </main>
+    <div id="mainWebsiteContent">
+        <header>
+            <img src="icon.png" alt="The_ProBeter Icon" class="header-icon" onerror="this.style.display='none';">
+            <div>
+                <h1>The_ProBeter's GAME'S!</h1>
+                <p>Heres the games i made!</p>
+            </div>
+        </header>
 
-    <footer>
-        <div class="social-links">
-            <a href="https://www.youtube.com/@The_ProBeterGaming" target="_blank">
-                <img src="yt-icon.png" alt="YouTube" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg'">
-            </a>
-            <a href="https://discord.gg/sWreCUdCbT" target="_blank">
-                <img src="discord-icon.png" alt="Discord" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg'">
-            </a>
-        </div>
-        <p class="coming-soon">👍MORE GAMES COMING SOON 👍</p>
-    </footer>
+        <main class="game-grid" id="gameGridContainer">
+            </main>
+
+        <footer>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@The_ProBeterGaming" target="_blank">
+                    <img src="yt-icon.png" alt="YouTube" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg'">
+                </a>
+                <a href="https://discord.gg/sWreCUdCbT" target="_blank">
+                    <img src="discord-icon.png" alt="Discord" class="social-icon" onerror="this.src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg'">
+                </a>
+            </div>
+            <p class="coming-soon">👍MORE GAMES COMING SOON 👍</p>
+        </footer>
+    </div>
 
     <script>
         const allowedAdmins = [
-            { user: "DefaultAdmin9455", pass: "adminadmin467$" },
-            { user: "The_ProBeter", pass: "La2014w$" }
+            { user: "admin", pass: "password123" }
         ];
 
         const defaultGames = [
@@ -320,9 +387,11 @@
 
         let gamesData = [];
         let isAdminLoggedIn = false;
+        let isMaintenanceOn = false;
 
         window.addEventListener('DOMContentLoaded', () => {
             isAdminLoggedIn = localStorage.getItem('isAdmin') === 'true';
+            isMaintenanceOn = localStorage.getItem('isMaintenance') === 'true';
             
             const savedGames = localStorage.getItem('myGamesPortalData');
             if (savedGames) {
@@ -356,22 +425,59 @@
             renderUI();
         }
 
+        // Toggle Website Down Page State
+        function toggleMaintenanceMode() {
+            isMaintenanceOn = !isMaintenanceOn;
+            localStorage.setItem('isMaintenance', isMaintenanceOn ? 'true' : 'false');
+            renderUI();
+        }
+
         function renderUI() {
             const container = document.getElementById('gameGridContainer');
             container.innerHTML = '';
 
+            // 1. Manage visibility layout based on maintenance toggle setup
+            const mainContentBlock = document.getElementById('mainWebsiteContent');
+            const maintenanceScreenBlock = document.getElementById('maintenanceScreen');
+
+            if (isMaintenanceOn && !isAdminLoggedIn) {
+                mainContentBlock.style.display = 'none';
+                maintenanceScreenBlock.style.display = 'block';
+                // Adjust auth bar styling context to position cleanly in corner during downtime
+                document.body.style.backgroundColor = '#f8fafc'; 
+            } else {
+                mainContentBlock.style.display = 'block';
+                maintenanceScreenBlock.style.display = 'none';
+                document.body.style.backgroundColor = 'var(--bg-color)';
+            }
+
+            // 2. Adjust Authentication bar switches
             if (isAdminLoggedIn) {
                 document.getElementById('adminLoginBtn').style.display = 'none';
                 document.getElementById('signupLink').style.display = 'none';
                 document.getElementById('adminLogoutBtn').style.display = 'inline-block';
                 document.getElementById('adminPanel').style.display = 'block';
+
+                // Update Control Panel Text Layout State Indicators
+                const panelLabel = document.getElementById('maintenanceLabel');
+                const panelToggleBtn = document.getElementById('maintenanceToggleBtn');
+                if (isMaintenanceOn) {
+                    panelLabel.innerText = "Website Status: DOWN (Maintenance Screen Active)";
+                    panelToggleBtn.innerText = "Take Website Live Again";
+                    panelToggleBtn.style.background = "#16a34a";
+                } else {
+                    panelLabel.innerText = "Website Status: Live & Operational";
+                    panelToggleBtn.innerText = "Switch to Website Down Page";
+                    panelToggleBtn.style.background = "var(--danger-btn)";
+                }
             } else {
                 document.getElementById('adminLoginBtn').style.display = 'inline-block';
-                document.getElementById('signupLink').style.display = 'inline-block';
+                document.getElementById('signupLink').style.display = isMaintenanceOn ? 'none' : 'inline-block';
                 document.getElementById('adminLogoutBtn').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'none';
             }
 
+            // 3. Render Card Loop Blocks
             gamesData.forEach(game => {
                 const article = document.createElement('article');
                 article.className = 'card';
