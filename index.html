@@ -122,7 +122,8 @@
     </header>
 
     <main class="game-grid" id="gameGridContainer">
-        </main>
+        <!-- Populated automatically from the list below -->
+    </main>
 
     <footer>
         <div class="social-links">
@@ -147,7 +148,7 @@
                 imgSrc: "aupttmsimage.png",
                 tags: ["Unity 6", "Itch.io", "Old Source Code"],
                 desc: "A game i made to test my unity skills. Ill say i did pretty good!",
-                type: "playable", // Options: "playable", "playonly", "game2", "comingsoon"
+                type: "playable", // Options: "playable", "playonly", "game2", "itchonly", "comingsoon"
                 playUrl: "https://the-probeter.itch.io/a-unity-project-to-test-my-skills",
                 sourceUrl: "https://github.com/TheProBeter/Project-I-made-to-test-my-unity-skills-Source-Code/releases/tag/sourcecode"
             },
@@ -165,8 +166,8 @@
                 imgSrc: "aupttms2-image.png",
                 tags: ["Unity", "In Development"],
                 desc: "Another game i made to improve on my skills!",
-                type: "comingsoon",
-                playUrl: "",
+                type: "itchonly",
+                playUrl: "https://the-probeter.itch.io/a-unity-project-to-test-my-skills-2",
                 sourceUrl: ""
             },
             {
@@ -208,6 +209,11 @@
                     buttonsHTML = `
                         <a href="${game.playUrl}" target="_blank" class="btn btn-play">Play Game</a>
                         <span class="btn btn-disabled btn-small-text">Game code available on same page as game</span>
+                    `;
+                } else if (game.type === 'itchonly') {
+                    // --- NEW CONDITION FOR SINGLE ITCH.IO BUTTON ---
+                    buttonsHTML = `
+                        <a href="${game.playUrl}" target="_blank" class="btn btn-play">View on itch.io</a>
                     `;
                 } else {
                     buttonsHTML = `<a href="#" class="btn btn-disabled">Coming Soon</a>`;
